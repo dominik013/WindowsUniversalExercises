@@ -8,6 +8,121 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".25*"/>
+            <RowDefinition Height=".75*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="txtCalculation"
+                   Text="{ x:Bind CalculationText, Mode=OneWay }"
+                   FontSize="24"
+                   Grid.Row="1"
+                   Grid.Column="0"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Grid.ColumnSpan="4"/>
+        <TextBlock x:Name="txtResult"
+                   Text="{ x:Bind ResultText, Mode=OneWay }"
+                   FontSize="72"
+                   Grid.Row="2"
+                   Grid.Column="0"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Grid.ColumnSpan="4"/>
 
+        <Button x:Name="btnZero"
+                Tag="Number"
+                Content="0"
+                FontSize="48"
+                Grid.ColumnSpan="2"
+                Grid.Row="8"
+                Grid.Column="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                Margin="5" Click="ButtonClick"
+                />
+        <Button x:Name="btnOne"
+                Tag="Number"
+                Content="1"
+                FontSize="48"
+                Grid.Row="7"
+                Grid.Column="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                Margin="5" Click="ButtonClick"
+                />
+        <Button x:Name="btnTwo"
+                Tag="Number"
+                Content="2"
+                FontSize="48"
+                Grid.Row="7"
+                Grid.Column="1"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                Margin="5" Click="ButtonClick"
+                />
+        <Button x:Name="btnThree"
+                Tag="Number"
+                Content="3"
+                FontSize="48"
+                Grid.Row="7"
+                Grid.Column="2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                Margin="5" Click="ButtonClick"
+                />
+        <Button x:Name="btnComma"
+                Tag="Number"
+                Content="."
+                FontSize="48"
+                Grid.Row="8"
+                Grid.Column="2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                Margin="5" Click="ButtonClick"
+                />
+
+        <Button x:Name="btnEquals"
+                Tag="Operator"
+                Content="="
+                FontSize="48"
+                Grid.Row="8"
+                Grid.Column="3"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                Margin="5" Click="ButtonClick"
+                />
+        <Button x:Name="btnPlus"
+                Tag="Operator"
+                Content="+"
+                FontSize="48"
+                Grid.Row="7"
+                Grid.Column="3"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                Margin="5" Click="ButtonClick"
+                />
+        <Button x:Name="btnMinus"
+                Tag="Operator"
+                Content="-"
+                FontSize="48"
+                Grid.Row="6"
+                Grid.Column="3"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                Margin="5" Click="ButtonClick"
+                />
     </Grid>
 </Page>
