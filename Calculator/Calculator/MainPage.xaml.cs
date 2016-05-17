@@ -27,11 +27,21 @@ namespace Calculator
     /// </summary>
     public sealed partial class MainPage : Page, INotifyPropertyChanged
     {
+		// The number of decimal-places used
+		public const int PRECISION = 5;
+
 		private string calculationText;
 		private string resultText;
+
 		private decimal result = 0m;
+		private decimal? memoryStorage = null;
+
+		// See if the last pressed button was an operator
 		private bool lastPressedOperator = true;
+
+		// See what operation was last added, to make the right calculation.
 		private string lastOperation = "";
+
 		private StringBuilder currentNumberBuilder;
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -71,9 +81,10 @@ namespace Calculator
 
 			this.DataContext = this;
 			currentNumberBuilder = new StringBuilder();
+			ResultText = result.ToString();
 		}
-
-		private async void ButtonClick(object sender, RoutedEventArgs e)
+		
+		private void NumberClick(object sender, RoutedEventArgs e)
 		{
 			Button pressed;
 			if (sender is Button)
@@ -97,7 +108,84 @@ namespace Calculator
 					CalculationText += pressed.Content;
 					ResultText += pressed.Content;
 				}
-				else if (pressed.Tag.Equals("Operator") && !lastPressedOperator)
+			}
+		}
+
+		private void ClearClick(object sender, RoutedEventArgs e)
+		{
+			result = 0m;
+			ResultText = "0";
+			CalculationText = "";
+			currentNumberBuilder.Clear();
+			lastOperation = "";
+			lastPressedOperator = true;
+		}
+
+		private void MemoryClick(object sender, RoutedEventArgs e)
+		{
+			Button pressed;
+			if (sender is Button)
+			{
+				pressed = sender as Button;
+				{
+					if (pressed.Tag.ToString().Contains("Memory"))
+					{
+						var splittedTag = pressed.Tag.ToString().Split('_');
+
+						switch (splittedTag[splittedTag.Length - 1])
+						{
+							case "Store":
+								if (currentNumberBuilder.Length > 0)
+								{
+									decimal tempValue;
+									memoryStorage = decimal.TryParse(currentNumberBuilder.ToString(), out tempValue)
+										? tempValue : null as decimal?;
+
+								}
+								break;
+							case "Restore":
+								if (memoryStorage != null && !lastOperation.Equals("="))// && !CalculationText.ToString().Equals(ResultText.ToString()))
+								{
+									currentNumberBuilder.Clear().Append(memoryStorage.ToString());
+									ResultText = currentNumberBuilder.ToString();
+									lastPressedOperator = false;
+									int i;
+									for (i = CalculationText.Length - 1; i > 0; i--)
+									{
+										if (CalculationText[i].Equals('+') ||
+											CalculationText[i].Equals('-') ||
+											CalculationText[i].Equals('*') ||
+											CalculationText[i].Equals('/'))
+										{
+											break;
+										}
+									}
+									if (i == 0)
+										CalculationText = CalculationText.Remove(i);
+									else if (i == CalculationText.Length - 1) { }
+									else
+										CalculationText = CalculationText.Remove(i + 1);
+									CalculationText += ResultText;
+								}
+								break;
+							case "Clear":
+								memoryStorage = null;
+								break;
+							default:
+								break;
+						}
+					}
+				}
+			}
+		}
+
+		private async void OperatorClick(object sender, RoutedEventArgs e)
+		{
+			Button pressed;
+			if (sender is Button)
+			{
+				pressed = sender as Button;
+				if (pressed.Tag.ToString().Contains("Operator") && !lastPressedOperator)
 				{
 					decimal currentNumber;
 					if (decimal.TryParse(currentNumberBuilder.ToString(), out currentNumber))
@@ -132,10 +220,12 @@ namespace Calculator
 							else
 							{
 								result /= currentNumber;
+								result = Math.Round(result, PRECISION);
 							}
 							break;
 						case "*":
 							result *= currentNumber;
+							result = Math.Round(result, PRECISION);
 							break;
 						case "":
 							result = currentNumber;
@@ -148,7 +238,7 @@ namespace Calculator
 
 					if (pressed.Content.Equals("="))
 					{
-						
+
 						CalculationText = ResultText;
 						lastPressedOperator = false;
 						currentNumberBuilder.Append(ResultText);
@@ -159,9 +249,10 @@ namespace Calculator
 						lastPressedOperator = true;
 					}
 
-					lastOperation = pressed.Content as string;
+					var splittedTag = pressed.Tag.ToString().Split('_');
+					lastOperation = splittedTag[splittedTag.Length - 1];
 				}
-			}
+			}		
 		}
 	}
 }
