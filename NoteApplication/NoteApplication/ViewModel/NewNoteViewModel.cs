@@ -1,12 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
+using NoteApplication.Helper;
 using NoteApplication.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
@@ -57,7 +54,8 @@ namespace NoteApplication.ViewModel
 
 		private void AddNote()
 		{
-			
+			NoteHelper.Instance.AddNote(new Note(NoteText, DateCreated));
+			navigationService.GoBack();
 		}
 
 		private void SetupDateCreated()

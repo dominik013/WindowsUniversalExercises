@@ -4,10 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:NoteApplication"
     xmlns:viewModels="using:NoteApplication.ViewModel"
+    xmlns:converters="using:NoteApplication.Converters"
     RequestedTheme="Light">
 
     <Application.Resources>
         <viewModels:ViewModelLocator x:Key="Locator"/>
+        <converters:DateTimeToDateTimeOffsetConverter x:Key="DateTimeToDateTimeOffsetConverter"/>
     </Application.Resources>
 
 </Application>

@@ -1,13 +1,17 @@
 ﻿using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NoteApplication.Helper;
+using NoteApplication.Model;
+using System.Collections.ObjectModel;
 
 namespace NoteApplication.ViewModel
 {
 	public class ReadNotesViewModel : ViewModelBase
 	{
+		public ObservableCollection<Note> Notes { get; }
+
+		public ReadNotesViewModel()
+		{
+			Notes = new ObservableCollection<Note>(NoteHelper.Instance.GetNotes(NoteHelper.Instance.NoteCount));
+		}
 	}
 }

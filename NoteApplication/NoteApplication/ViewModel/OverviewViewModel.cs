@@ -16,15 +16,21 @@ namespace NoteApplication.ViewModel
 
 		public RelayCommand NavigateNewNoteCommand { get; }
 		public RelayCommand NavigateReadNotesCommand { get; }
+		public RelayCommand NavigateSearchNotesCommand { get; }
+		public RelayCommand NavigateSettingsCommand { get; }
 
 		public OverviewViewModel()
 		{
 			navigationService = new NavigationService();
 			navigationService.Configure("NewNotePage", typeof(Pages.NewNotePage));
 			navigationService.Configure("ReadNotesPage", typeof(Pages.ReadNotes));
+			navigationService.Configure("SearchNotesPage", typeof(Pages.SearchNotes));
+			navigationService.Configure("SettingsPage", typeof(Pages.Settings));
 
 			NavigateNewNoteCommand = new RelayCommand(NavigateToNewNote);
 			NavigateReadNotesCommand = new RelayCommand(NavigateToReadNotes);
+			NavigateSearchNotesCommand = new RelayCommand(NavigateToSearchNotes);
+			NavigateSettingsCommand = new RelayCommand(NavigateToSettings);
 		}
 		public void NavigateToNewNote()
 		{
@@ -34,9 +40,13 @@ namespace NoteApplication.ViewModel
 		{
 			navigationService.NavigateTo("ReadNotesPage");
 		}
-		//public void NavigateBack()
-		//{
-		//	navigationService.GoBack();
-		//}
+		public void NavigateToSearchNotes()
+		{
+			navigationService.NavigateTo("SearchNotesPage");
+		}
+		public void NavigateToSettings()
+		{
+			navigationService.NavigateTo("SettingsPage");
+		}
 	}
 }

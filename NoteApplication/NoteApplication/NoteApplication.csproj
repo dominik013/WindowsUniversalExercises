@@ -98,6 +98,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\DateTimeToDateTimeOffsetConverter.cs" />
+    <Compile Include="Helper\NoteHelper.cs" />
     <Compile Include="Model\Note.cs" />
     <Compile Include="Pages\NewNotePage.xaml.cs">
       <DependentUpon>NewNotePage.xaml</DependentUpon>
@@ -108,10 +110,18 @@
     <Compile Include="Pages\ReadNotes.xaml.cs">
       <DependentUpon>ReadNotes.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\SearchNotes.xaml.cs">
+      <DependentUpon>SearchNotes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\NewNoteViewModel.cs" />
     <Compile Include="ViewModel\OverviewViewModel.cs" />
     <Compile Include="ViewModel\ReadNotesViewModel.cs" />
+    <Compile Include="ViewModel\SearchNotesViewModel.cs" />
+    <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -146,6 +156,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\ReadNotes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SearchNotes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

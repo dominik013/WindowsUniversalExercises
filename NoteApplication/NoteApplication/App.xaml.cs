@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using NoteApplication.ViewModel;
 
 namespace NoteApplication
 {
@@ -106,16 +107,15 @@ namespace NoteApplication
 				{
 					if (frame.CurrentSourcePageType == typeof(Pages.NewNotePage))
 					{
-						var vm = SimpleIoc.Default.GetInstance<ViewModel.NewNoteViewModel>();
+						var vm = (new ViewModel.ViewModelLocator()).NewNoteViewModel;
 						vm.NavigateBack();
-						//TODO: Doesnt work ....
 					}
 					else
 					{
-						frame.GoBack();
-						// Signal handled so that system doesn't navigate back through app stack
-						e.Handled = true;
+						frame.GoBack();					
 					}
+					// Signal handled so that system doesn't navigate back through app stack
+					e.Handled = true;
 				}
 			}
 		}
