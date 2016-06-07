@@ -14,21 +14,31 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="10*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Image Grid.Row="0"
                Source="ms-appx:///Assets/notes_header.png"
                Margin="10"/>
-        <ListView ItemsSource="{Binding Path=Notes}" Grid.Row="1">
+        <ListView ItemsSource="{Binding Path=Notes}" Grid.Row="1" Margin="0,0.333,0,0" Grid.RowSpan="2">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="model:Note">
-                    <StackPanel Orientation="Horizontal" Width="auto">
+                    <StackPanel Orientation="Vertical" Width="auto">
+                        <TextBlock Text="{x:Bind CreatedTime}"
+                                   Margin="10 0 0 0"
+                                   FontWeight="Bold"/>
                         <TextBlock Text="{x:Bind Content}"
                                    TextWrapping="Wrap"/>
-                        <TextBlock Text="{x:Bind CreatedTime}"
-                                   Margin="10 0 0 0"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <TextBlock Text="Maximum shown items:"/>
+            <TextBlock Text="{Binding NumberOfShownItems}"
+                       Margin="10 0 0 0"/>
+        </StackPanel>
     </Grid>
 </Page>

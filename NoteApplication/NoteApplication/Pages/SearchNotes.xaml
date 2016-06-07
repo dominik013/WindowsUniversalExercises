@@ -22,11 +22,12 @@
         <ListView ItemsSource="{Binding Path=Notes}" Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="model:Note">
-                    <StackPanel Orientation="Horizontal" Width="auto">
+                    <StackPanel Orientation="Vertical" Width="auto">
+                        <TextBlock Text="{x:Bind CreatedTime}"
+                                   Margin="10 0 0 0"
+                                   FontWeight="Bold"/>
                         <TextBlock Text="{x:Bind Content}"
                                    TextWrapping="Wrap"/>
-                        <TextBlock Text="{x:Bind CreatedTime}"
-                                   Margin="10 0 0 0"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

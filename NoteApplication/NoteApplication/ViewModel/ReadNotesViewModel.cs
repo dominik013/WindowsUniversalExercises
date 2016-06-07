@@ -8,6 +8,7 @@ namespace NoteApplication.ViewModel
 	public class ReadNotesViewModel : ViewModelBase
 	{
 		public ObservableCollection<Note> Notes { get; }
+		public string NumberOfShownItems { get; } = NoteHelper.Instance.NoteCount.ToString();
 
 		public ReadNotesViewModel()
 		{
