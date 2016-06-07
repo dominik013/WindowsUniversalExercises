@@ -15,10 +15,10 @@ namespace NoteApplication.ViewModel
 			SimpleIoc.Default.Register<SettingsViewModel>();
 		}
 
-		public NewNoteViewModel NewNoteViewModel => new NewNoteViewModel();
-		public OverviewViewModel OverviewViewModel => new OverviewViewModel();
-		public ReadNotesViewModel ReadNotesViewModel => new ReadNotesViewModel();
-		public SearchNotesViewModel SearchNotesViewModel => new SearchNotesViewModel();
-		public SettingsViewModel SettingsViewModel => new SettingsViewModel();
+		public NewNoteViewModel NewNoteViewModel => ServiceLocator.Current.GetInstance<NewNoteViewModel>();
+		public OverviewViewModel OverviewViewModel => ServiceLocator.Current.GetInstance<OverviewViewModel>();
+		public ReadNotesViewModel ReadNotesViewModel => ServiceLocator.Current.GetInstance<ReadNotesViewModel>();
+		public SearchNotesViewModel SearchNotesViewModel => ServiceLocator.Current.GetInstance<SearchNotesViewModel>();
+		public SettingsViewModel SettingsViewModel => ServiceLocator.Current.GetInstance<SettingsViewModel>();
 	}
 }

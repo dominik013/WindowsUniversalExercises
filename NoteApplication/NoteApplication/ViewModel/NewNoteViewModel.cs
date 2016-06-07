@@ -12,14 +12,15 @@ namespace NoteApplication.ViewModel
 	// INPC injected by Fody
 	public class NewNoteViewModel : ViewModelBase
 	{
-		public Note NoteToAdd { get; set; }
 		public string NoteText { get; set; }
 		public DateTime DateCreated { get; set; }
-		public RelayCommand AddNoteCommand { get; }
+		
+		public static NewNoteViewModel Instance { get; } = new NewNoteViewModel();
 
 		private DispatcherTimer dispatcherTimer;
-
 		private readonly NavigationService navigationService;
+
+		public RelayCommand AddNoteCommand { get; }
 		public RelayCommand NavigateBackCommand { get; }
 
 		public bool CanAddNote => !string.IsNullOrEmpty(NoteText);	

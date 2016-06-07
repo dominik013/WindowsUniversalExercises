@@ -8,7 +8,7 @@
     RequestedTheme="Light">
 
     <Application.Resources>
-        <viewModels:ViewModelLocator x:Key="Locator"/>
+        <viewModels:ViewModelLocator x:Key="Locator" />
         <converters:DateTimeToDateTimeOffsetConverter x:Key="DateTimeToDateTimeOffsetConverter"/>
     </Application.Resources>
 

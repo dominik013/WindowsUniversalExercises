@@ -107,8 +107,7 @@ namespace NoteApplication
 				{
 					if (frame.CurrentSourcePageType == typeof(Pages.NewNotePage))
 					{
-						var vm = (new ViewModel.ViewModelLocator()).NewNoteViewModel;
-						vm.NavigateBack();
+						((App)App.Current).ViewModelLocator.NewNoteViewModel.NavigateBack();
 					}
 					else
 					{
@@ -143,5 +142,7 @@ namespace NoteApplication
 			//TODO: Anwendungszustand speichern und alle Hintergrundaktivitäten beenden
 			deferral.Complete();
 		}
+
+		public ViewModelLocator ViewModelLocator => this.Resources["Locator"] as ViewModelLocator;
 	}
 }
