@@ -50,12 +50,14 @@ namespace NoteApplication.ViewModel
 				if (command == commandNo)
 					return;
 			}
+			NoteText = "";
 			navigationService.GoBack();
 		}
 
 		private void AddNote()
 		{
 			NoteHelper.Instance.AddNote(new Note(NoteText, DateCreated));
+			NoteText = "";
 			navigationService.GoBack();
 		}
 
