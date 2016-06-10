@@ -1,4 +1,5 @@
-﻿using NoteApplication.Helper;
+﻿using GalaSoft.MvvmLight.Command;
+using NoteApplication.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,24 @@ namespace NoteApplication.ViewModel
 					NoteHelper.Instance.NoteCount = number;
 				}
 			}
+		}
+
+		public RelayCommand SaveCommand { get; }
+		public RelayCommand LoadCommand { get; }
+
+		public SettingsViewModel()
+		{
+			SaveCommand = new RelayCommand(SaveData);
+			LoadCommand = new RelayCommand(LoadData);
+		}
+
+		private void SaveData()
+		{
+
+		}
+		private void LoadData()
+		{
+
 		}
 	}
 }
