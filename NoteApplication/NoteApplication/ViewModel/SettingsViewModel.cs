@@ -28,6 +28,20 @@ namespace NoteApplication.ViewModel
 			}
 		}
 
+		private bool sortAscending = NoteHelper.Instance.SortAscending;
+		public bool SortAscending
+		{
+			get
+			{
+				return sortAscending;
+			}
+			set
+			{
+				sortAscending = value;
+				NoteHelper.Instance.SortAscending = value;
+			}
+		}
+
 		public RelayCommand SaveCommand { get; }
 		public RelayCommand LoadCommand { get; }
 

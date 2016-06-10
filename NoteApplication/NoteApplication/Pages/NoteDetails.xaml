@@ -1,0 +1,47 @@
+﻿<Page
+    x:Class="NoteApplication.Pages.NoteDetails"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:NoteApplication.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding Path=NoteDetailsViewModel, Source={StaticResource Locator}}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0"
+               Source="ms-appx:///Assets/notes_header.png"
+               Margin="10,10,10,9.667"/>
+
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="1">
+            <TextBlock Text="Edit Note:"
+                       HorizontalAlignment="Center"/>
+            <TextBox Text="{Binding Path=NoteText, Mode=TwoWay}"
+                     TextWrapping="Wrap"
+                     VerticalAlignment="Stretch"
+                     Height="auto"
+                     AcceptsReturn="True"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <Button Content="Cancel"
+                    Command="{Binding Path=CancelCommand}"
+                    Margin="5"/>
+            <Button Content="Delete"
+                    Command="{Binding Path=DeleteCommand}"
+                    Margin="5"/>
+            <Button Content="Save"
+                    Command="{Binding Path=SaveCommand}"
+                    Margin="5"/>
+        </StackPanel>
+
+    </Grid>
+</Page>
