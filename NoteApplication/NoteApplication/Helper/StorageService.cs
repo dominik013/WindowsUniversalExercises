@@ -1,14 +1,10 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NoteApplication.Interfaces;
 using Windows.Storage;
 
 namespace NoteApplication.Helper
 {
-	public class StorageService
+	public class StorageService : IStorageService
 	{
 		private readonly ApplicationDataContainer appData = ApplicationData.Current.LocalSettings;
 

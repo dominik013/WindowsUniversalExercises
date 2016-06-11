@@ -11,7 +11,8 @@ namespace NoteApplication.ViewModel
 	public class SearchNotesViewModel : ViewModelBase
 	{
 		public ObservableCollection<Note> Notes { get; set; }
-		public string SearchText { get; set; }
+		public string SearchText { get; set; } = "";
+
 		public RelayCommand SearchCommand { get; }
 
 		public DateTime From { get; set; } = new DateTime(2000, 1, 1);
@@ -39,27 +40,13 @@ namespace NoteApplication.ViewModel
 		public SearchNotesViewModel()
 		{
 			SearchCommand = new RelayCommand(SearchNotes);
-			Notes = new ObservableCollection<Note>();
 			navigationService = new NavigationService();
 			navigationService.Configure("NoteDetailsPage", typeof(Pages.NoteDetails));
 		}
 
 		private void SearchNotes()
 		{
-			if (SearchText != null && SearchText.Length != 0)
-			{
-				Notes.Clear();
-				var noteList = NoteHelper.Instance.GetNotesThatContain(SearchText);
-
-				foreach (var note in noteList)
-				{
-					if ((DateTime.Compare(note.CreatedTime, From) >= 0) &&	// t1 is later than t2
-						(DateTime.Compare(note.CreatedTime, To) <= 0))		// t1 is earlier than t2
-					{
-						Notes.Add(note);
-					}
-				}
-			}
+			Notes = new ObservableCollection<Note>(NoteHelper.Instance.GetNotesThatContain(SearchText, From, To));
 		}
 	}
 }

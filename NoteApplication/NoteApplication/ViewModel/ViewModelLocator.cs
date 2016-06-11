@@ -1,5 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using NoteApplication.Helper;
+using NoteApplication.Interfaces;
 
 namespace NoteApplication.ViewModel
 {
@@ -15,6 +17,8 @@ namespace NoteApplication.ViewModel
 			SimpleIoc.Default.Register<SearchNotesViewModel>();
 			SimpleIoc.Default.Register<SettingsViewModel>();
 			SimpleIoc.Default.Register<NoteDetailsViewModel>();
+
+			SimpleIoc.Default.Register<IStorageService, StorageService>();
 		}
 
 		public NewNoteViewModel NewNoteViewModel => ServiceLocator.Current.GetInstance<NewNoteViewModel>();

@@ -102,6 +102,7 @@
     <Compile Include="Helper\Mediator.cs" />
     <Compile Include="Helper\NoteHelper.cs" />
     <Compile Include="Helper\StorageService.cs" />
+    <Compile Include="Interfaces\IStorageService.cs" />
     <Compile Include="Model\Note.cs" />
     <Compile Include="Pages\NewNotePage.xaml.cs">
       <DependentUpon>NewNotePage.xaml</DependentUpon>

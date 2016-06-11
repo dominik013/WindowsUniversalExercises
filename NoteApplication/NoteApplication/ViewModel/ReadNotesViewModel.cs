@@ -25,7 +25,7 @@ namespace NoteApplication.ViewModel
 				Mediator.Instance.SendMessage("SelectedNote", value);
 			}
 		}
-		public string NumberOfShownItems { get; } = NoteHelper.Instance.NoteCount.ToString();
+		public string NumberOfShownItems { get; set; } = NoteHelper.Instance.NoteCount.ToString();
 
 		private readonly NavigationService navigationService;
 

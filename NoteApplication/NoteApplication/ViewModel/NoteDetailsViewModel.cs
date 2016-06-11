@@ -3,11 +3,6 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using NoteApplication.Helper;
 using NoteApplication.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NoteApplication.ViewModel
 {
@@ -15,6 +10,7 @@ namespace NoteApplication.ViewModel
 	{
 		public Note Note { get; set; }
 		public string NoteText { get; set; }
+
 		public RelayCommand CancelCommand { get; }
 		public RelayCommand SaveCommand { get; }
 		public RelayCommand DeleteCommand { get; }

@@ -8,7 +8,7 @@ namespace NoteApplication.Helper
 {
 	public class NoteHelper
 	{
-		private List<Note> noteList = new List<Note>();
+		public List<Note> NoteList { get; set; } = new List<Note>();
 		public int NoteCount { get; set; } = 10;
 		public bool SortAscending { get; set; } = false;
 
@@ -16,30 +16,36 @@ namespace NoteApplication.Helper
 
 		public void AddNote(Note note)
 		{
-			noteList.Add(note);
+			NoteList.Add(note);
 		}
 
 		public void RemoveNote(Note note)
 		{
-			noteList.Remove(note);
+			NoteList.Remove(note);
 		}
 
 		public ReadOnlyCollection<Note> GetNotes(int count)
 		{
 			if (SortAscending)
 			{
-				return noteList.OrderBy(note => note.CreatedTime).Take(count).ToList().AsReadOnly();
+				return NoteList.OrderBy(note => note.CreatedTime).Take(count).ToList().AsReadOnly();
 			}
-			return noteList.OrderByDescending(note => note.CreatedTime).Take(count).ToList().AsReadOnly();
+			return NoteList.OrderByDescending(note => note.CreatedTime).Take(count).ToList().AsReadOnly();
 		}
 
-		public ReadOnlyCollection<Note> GetNotesThatContain(string s)
+		public ReadOnlyCollection<Note> GetNotesThatContain(string s, DateTime from, DateTime to)
 		{
+			List<Note> list = NoteList.OrderBy(note => note.CreatedTime).Where(note => note.Content.Contains(s)
+				&& (DateTime.Compare(note.CreatedTime, from) >= 0)
+				&& (DateTime.Compare(note.CreatedTime, to) <= 0)).ToList();
+
 			if (SortAscending)
 			{
-				return noteList.OrderBy(note => note.CreatedTime).Where(note => note.Content.Contains(s)).ToList().AsReadOnly();
+				return list.AsReadOnly();
 			}
-			return noteList.OrderByDescending(note => note.CreatedTime).Where(note => note.Content.Contains(s)).ToList().AsReadOnly();
+
+			list.Reverse();
+			return list.AsReadOnly();
 		}
 	}
 }

@@ -1,5 +1,8 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using NoteApplication.Helper;
+using NoteApplication.Interfaces;
+using NoteApplication.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace NoteApplication.ViewModel
 {
-	public class SettingsViewModel
+	public class SettingsViewModel : ViewModelBase
 	{
 		private string notesToShowCount;
 		public string NotesToShowCount
@@ -45,19 +48,26 @@ namespace NoteApplication.ViewModel
 		public RelayCommand SaveCommand { get; }
 		public RelayCommand LoadCommand { get; }
 
-		public SettingsViewModel()
+		private readonly IStorageService storageService;
+
+		public SettingsViewModel(IStorageService storageService)
 		{
+			this.storageService = storageService;
 			SaveCommand = new RelayCommand(SaveData);
 			LoadCommand = new RelayCommand(LoadData);
 		}
 
 		private void SaveData()
 		{
-
+			storageService.Write(nameof(NotesToShowCount), NotesToShowCount);
+			storageService.Write(nameof(SortAscending), SortAscending);
+			storageService.Write(nameof(NoteHelper.Instance.NoteList), NoteHelper.Instance.NoteList);
 		}
 		private void LoadData()
 		{
-
+			NotesToShowCount = storageService.Read<string>(nameof(NotesToShowCount), "5");
+			SortAscending = storageService.Read<bool>(nameof(SortAscending), false);
+			NoteHelper.Instance.NoteList = storageService.Read<List<Note>>(nameof(NoteHelper.Instance.NoteList), new List<Note>());
 		}
 	}
 }
