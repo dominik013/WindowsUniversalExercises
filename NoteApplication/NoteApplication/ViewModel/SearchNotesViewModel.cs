@@ -47,6 +47,8 @@ namespace NoteApplication.ViewModel
 			navigationService.Configure("NoteDetailsPage", typeof(Pages.NoteDetails));
 
 			PropertyChanged += SearchNotesViewModel_PropertyChanged;
+			To = To.AddDays(1);
+			SearchNotes();
 		}
 
 		private void SearchNotesViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs args)

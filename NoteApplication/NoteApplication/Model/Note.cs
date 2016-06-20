@@ -1,17 +1,20 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace NoteApplication.Model
 {
 	public class Note
 	{
-		public Note(string content, DateTime createdTime, double latitude, double longitude)
+		public Note(string title, string content, DateTime createdTime)
 		{
+			Title = title;
 			Content = content;
 			CreatedTime = createdTime;
-			Latitude = latitude;
-			Longitude = longitude;
 		}
+		public string Title { get; set; }
 		public string Content { get; set; }
+		public int Id { get; set; }
+		[JsonProperty("CreatedAt")]
 		public DateTime CreatedTime { get; set; }
 		public double Latitude { get; set; }
 		public double Longitude { get; set; }

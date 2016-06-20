@@ -14,10 +14,9 @@ namespace NoteApplication.ViewModel
 	// INPC injected by Fody
 	public class NewNoteViewModel : ViewModelBase
 	{
+		public string NoteTitle { get; set; }
 		public string NoteText { get; set; }
 		public DateTime DateCreated { get; set; }
-		private double Latitude { get; set; }
-		private double Longitude { get; set; } 
 		
 		private DispatcherTimer dispatcherTimer;
 		private readonly NavigationService navigationService;
@@ -62,12 +61,14 @@ namespace NoteApplication.ViewModel
 
 		private void AddNote()
 		{
-			dataservice.AddNote(new Note(NoteText, DateCreated, Latitude, Longitude));
+			Note note = new Note(NoteTitle, NoteText, DateCreated);
+			GetCurrentLocation(note);
+			dataservice.AddNote(note);
 			NoteText = "";
 			navigationService.GoBack();
 		}
 
-		private async void GetCurrentLocation()
+		private async void GetCurrentLocation(Note note)
 		{
 			var access = await Geolocator.RequestAccessAsync();
 
@@ -79,8 +80,8 @@ namespace NoteApplication.ViewModel
 					var geopositon = await geolocator.GetGeopositionAsync();
 					var geopoint = geopositon.Coordinate.Point;
 
-					Latitude = geopoint.Position.Latitude;
-					Longitude = geopoint.Position.Longitude;
+					note.Latitude = geopoint.Position.Latitude;
+					note.Longitude = geopoint.Position.Longitude;
 					break;
 				case GeolocationAccessStatus.Unspecified:
 				case GeolocationAccessStatus.Denied:

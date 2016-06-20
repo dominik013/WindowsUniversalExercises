@@ -19,7 +19,7 @@ namespace NoteApplication.ViewModel
 			SimpleIoc.Default.Register<NoteDetailsViewModel>();
 
 			SimpleIoc.Default.Register<IStorageService, StorageService>();
-			SimpleIoc.Default.Register<IDataService, OneTimeDataService>();
+			SimpleIoc.Default.Register<IDataService, CloudDataService>();
 		}
 
 		public NewNoteViewModel NewNoteViewModel => ServiceLocator.Current.GetInstance<NewNoteViewModel>();

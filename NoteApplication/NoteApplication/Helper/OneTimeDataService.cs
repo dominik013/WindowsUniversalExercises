@@ -12,12 +12,7 @@ namespace NoteApplication.Helper
 
 		public OneTimeDataService()
 		{
-			notes = new List<Note>
-						   {
-							   new Note("test", DateTime.Now, 1, 2),
-							   new Note("test2", DateTime.Now, 1, 2),
-							   new Note("test3", DateTime.Now, 1, 2)
-						   };
+			notes = new List<Note>();
 		}
 		public async Task<IEnumerable<Note>> GetAllNotes()
 		{

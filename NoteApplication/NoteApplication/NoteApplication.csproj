@@ -99,6 +99,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\DateTimeToDateTimeOffsetConverter.cs" />
+    <Compile Include="Helper\CloudDataService.cs" />
     <Compile Include="Helper\Mediator.cs" />
     <Compile Include="Helper\NoteHelper.cs" />
     <Compile Include="Helper\OneTimeDataService.cs" />
