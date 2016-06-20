@@ -37,6 +37,12 @@
                     Margin="20"
                     Command="{Binding
                 Path=NavigateSearchNotesCommand}"/>
+            <Button Content="Mapview"
+                    HorizontalAlignment="Center"
+                    FontSize="40"
+                    Margin="20"
+                    Command="{Binding
+                Path=NavigateMapviewCommand}"/>
             <Button Content="Settings"
                     HorizontalAlignment="Center"
                     FontSize="40"

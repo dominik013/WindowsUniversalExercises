@@ -6,42 +6,89 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
     DataContext="{Binding Path=NoteDetailsViewModel, Source={StaticResource Locator}}">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="2*"/>
-        </Grid.RowDefinitions>
-        <Image Grid.Row="0"
-               Source="ms-appx:///Assets/notes_header.png"
-               Margin="10,10,10,9.667"/>
+    <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="VisualStateMin800">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
 
-        <StackPanel Orientation="Vertical"
-                    Grid.Row="1">
-            <TextBlock Text="Edit Note:"
-                       HorizontalAlignment="Center"/>
-            <TextBox Text="{Binding Path=NoteText, Mode=TwoWay}"
-                     TextWrapping="Wrap"
-                     VerticalAlignment="Stretch"
-                     Height="auto"
-                     AcceptsReturn="True"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal"
-                    Grid.Row="2"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-            <Button Content="Cancel"
-                    Command="{Binding Path=CancelCommand}"
-                    Margin="5"/>
-            <Button Content="Delete"
-                    Command="{Binding Path=DeleteCommand}"
-                    Margin="5"/>
-            <Button Content="Save"
-                    Command="{Binding Path=SaveCommand}"
-                    Margin="5"/>
-        </StackPanel>
+                <VisualState x:Name="VisualStateMin0">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--Here we are going to change the layout-->
+                        <Setter Target="map.(RelativePanel.Below)" Value="SettingsGrid" />
+                        <Setter Target="map.(RelativePanel.AlignTopWithPanel)" Value="False" />
+                        <Setter Target="map.(RelativePanel.AlignLeftWithPanel)" Value="True" />
+                        <Setter Target="map.(RelativePanel.AlignBottomWithPanel)" Value="True" />
+                        <Setter Target="map.(RelativePanel.AlignRightWithPanel)" Value="True" />
+                        <Setter Target="SettingsGrid.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="True" />
+                        <Setter Target="SettingsGrid.(RelativePanel.AlignVerticalCenterWithPanel)" Value="False" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid x:Name="SettingsGrid"
+              RelativePanel.AlignVerticalCenterWithPanel="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0"
+                   Source="ms-appx:///Assets/notes_header.png"
+                   Margin="10"/>
 
-    </Grid>
+            <StackPanel Orientation="Vertical"
+                        Grid.Row="1">
+                <TextBlock Text="Edit Note:"
+                           HorizontalAlignment="Center"/>
+                <TextBox Text="{Binding Path=NoteText, Mode=TwoWay}"
+                         TextWrapping="Wrap"
+                         VerticalAlignment="Stretch"
+                         Height="auto"
+                         AcceptsReturn="True"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <Button Content="Cancel"
+                        Command="{Binding Path=CancelCommand}"
+                        Margin="5"/>
+                <Button Content="Delete"
+                        Command="{Binding Path=DeleteCommand}"
+                        Margin="5"/>
+                <Button Content="Save"
+                        Command="{Binding Path=SaveCommand}"
+                        Margin="5"/>
+            </StackPanel>
+        </Grid>
+        <maps:MapControl
+            x:Name="map"                     
+            MapServiceToken="{x:Bind ViewModel.Token}"
+            Style="{x:Bind ViewModel.MapStyle, Mode=OneWay}"
+            ZoomLevel="{x:Bind ViewModel.Zoom, Mode=OneWay}"
+            Center="{x:Bind ViewModel.LocationTaken, Mode=OneWay}"
+
+            RelativePanel.RightOf="SettingsGrid"
+            RelativePanel.AlignRightWithPanel="true"
+            RelativePanel.AlignTopWithPanel="true"
+            RelativePanel.AlignBottomWithPanel="true">
+
+            <maps:MapItemsControl>
+                <StackPanel maps:MapControl.Location="{x:Bind ViewModel.LocationTaken}"
+                            maps:MapControl.NormalizedAnchorPoint="0.5 1">
+                    <Image Source="ms-appx:///Assets/pin.png"/>
+                </StackPanel>
+            </maps:MapItemsControl>
+        </maps:MapControl>
+    </RelativePanel>
 </Page>

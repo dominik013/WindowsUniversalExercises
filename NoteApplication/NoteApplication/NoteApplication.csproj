@@ -107,6 +107,10 @@
     <Compile Include="Interfaces\IDataService.cs" />
     <Compile Include="Interfaces\IStorageService.cs" />
     <Compile Include="Model\Note.cs" />
+    <Compile Include="Model\POI.cs" />
+    <Compile Include="Pages\MapviewPage.xaml.cs">
+      <DependentUpon>MapviewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\NewNotePage.xaml.cs">
       <DependentUpon>NewNotePage.xaml</DependentUpon>
     </Compile>
@@ -126,6 +130,7 @@
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\MapviewViewModel.cs" />
     <Compile Include="ViewModel\NewNoteViewModel.cs" />
     <Compile Include="ViewModel\NoteDetailsViewModel.cs" />
     <Compile Include="ViewModel\OverviewViewModel.cs" />
@@ -142,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\notes_header.png" />
+    <Content Include="Assets\pin.png" />
     <Content Include="FodyWeavers.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -157,6 +163,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Pages\MapviewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\NewNotePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

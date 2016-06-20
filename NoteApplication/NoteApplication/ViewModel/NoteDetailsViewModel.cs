@@ -4,6 +4,10 @@ using GalaSoft.MvvmLight.Views;
 using NoteApplication.Helper;
 using NoteApplication.Interfaces;
 using NoteApplication.Model;
+using System;
+using Windows.Devices.Geolocation;
+using Windows.Foundation;
+using Windows.UI.Xaml.Controls.Maps;
 
 namespace NoteApplication.ViewModel
 {
@@ -19,11 +23,20 @@ namespace NoteApplication.ViewModel
 		private NavigationService navigationService;
 		private readonly IDataService dataservice;
 		private readonly ReadNotesViewModel readNotesViewModel;
+		private readonly MapviewViewModel mapviewViewModel;
 
-		public NoteDetailsViewModel(IDataService dataservice, ReadNotesViewModel readNotesViewModel)
+		// Map related
+		public MapStyle MapStyle => (MapStyle)Enum.Parse(typeof(MapStyle), MapStyleName);
+		public string MapStyleName { get; set; } = "Road";
+		public string Token => "ABqAfIfL8B3HIvAVMVmK~MSfiZYN7DoiZ0MlGVtjOHw~Aq0tWh2Z0wfet16va06U21q4LNDSvC4mjQSLJjhtL5MV8RMTKvWwoqDNGinI4dGn";
+		public double Zoom { get; set; } = 5;
+		public Geopoint LocationTaken { get; set; } 
+
+		public NoteDetailsViewModel(IDataService dataservice, ReadNotesViewModel readNotesViewModel, MapviewViewModel mapviewViewModel)
 		{
 			this.dataservice = dataservice;
 			this.readNotesViewModel = readNotesViewModel;
+			this.mapviewViewModel = mapviewViewModel;
 
 			CancelCommand = new RelayCommand(CancelEdit);
 			SaveCommand = new RelayCommand(SaveNote);
@@ -39,6 +52,7 @@ namespace NoteApplication.ViewModel
 			{
 				Note = arg as Note;
 				NoteText = Note.Content;
+				LocationTaken = new Geopoint(new BasicGeoposition() { Latitude = Note.Latitude, Longitude = Note.Longitude });
 			}
 		}
 
@@ -50,6 +64,7 @@ namespace NoteApplication.ViewModel
 		private void SaveNote()
 		{
 			Note.Content = NoteText;
+			dataservice.SaveNote(Note);
 			readNotesViewModel.LoadNotes();
 			navigationService.GoBack();
 		}
@@ -57,7 +72,7 @@ namespace NoteApplication.ViewModel
 		private void DeleteNote()
 		{
 			dataservice.DeleteNote(Note);
-			readNotesViewModel.LoadNotes();
+			readNotesViewModel.LoadNotes();	
 			navigationService.GoBack();
 		}
 	}

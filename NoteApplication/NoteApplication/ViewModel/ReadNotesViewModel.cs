@@ -37,8 +37,7 @@ namespace NoteApplication.ViewModel
 		{
 			this.settings = settings;
 			this.dataservice = dataservice;
-			
-			//Notes = new ObservableCollection<Note>(NoteHelper.Instance.GetNotes(settings.NotesToShowCount));
+
 			navigationService = new NavigationService();
 			navigationService.Configure("NoteDetailsPage", typeof(Pages.NoteDetails));		
 		}

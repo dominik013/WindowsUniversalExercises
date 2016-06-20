@@ -1,4 +1,5 @@
-﻿using NoteApplication.ViewModel;
+﻿using NoteApplication.Model;
+using NoteApplication.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +9,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Maps;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
@@ -21,13 +23,27 @@ namespace NoteApplication.Pages
 	/// <summary>
 	/// Eine leere Seite, die eigenständig verwendet oder zu der innerhalb eines Rahmens navigiert werden kann.
 	/// </summary>
-	public sealed partial class NoteDetails : Page
+	public sealed partial class MapviewPage : Page
 	{
-		public NoteDetails()
+		public MapviewPage()
 		{
 			this.InitializeComponent();
 		}
 
-		public NoteDetailsViewModel ViewModel => DataContext as NoteDetailsViewModel;
+		public MapviewViewModel ViewModel => DataContext as MapviewViewModel;
+
+		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+			Button button = e.OriginalSource as Button;
+			if (button.DataContext is POI)
+			{
+				ViewModel.GoToNoteDetails(button.DataContext as POI);
+			}
+		}
+
+		private void map_Loaded(object sender, RoutedEventArgs e)
+		{
+			ViewModel.GetNotes();
+		}
 	}
 }

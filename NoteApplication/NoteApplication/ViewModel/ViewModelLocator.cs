@@ -17,6 +17,7 @@ namespace NoteApplication.ViewModel
 			SimpleIoc.Default.Register<SearchNotesViewModel>();
 			SimpleIoc.Default.Register<SettingsViewModel>();
 			SimpleIoc.Default.Register<NoteDetailsViewModel>();
+			SimpleIoc.Default.Register<MapviewViewModel>();
 
 			SimpleIoc.Default.Register<IStorageService, StorageService>();
 			SimpleIoc.Default.Register<IDataService, CloudDataService>();
@@ -28,5 +29,6 @@ namespace NoteApplication.ViewModel
 		public SearchNotesViewModel SearchNotesViewModel => ServiceLocator.Current.GetInstance<SearchNotesViewModel>();
 		public SettingsViewModel SettingsViewModel => ServiceLocator.Current.GetInstance<SettingsViewModel>();
 		public NoteDetailsViewModel NoteDetailsViewModel => ServiceLocator.Current.GetInstance<NoteDetailsViewModel>();
+		public MapviewViewModel MapviewViewModel => ServiceLocator.Current.GetInstance<MapviewViewModel>();
 	}
 }
