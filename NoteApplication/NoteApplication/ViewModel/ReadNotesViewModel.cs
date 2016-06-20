@@ -1,7 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Views;
 using NoteApplication.Helper;
+using NoteApplication.Interfaces;
 using NoteApplication.Model;
+using System.Collections;
 using System.Collections.ObjectModel;
 
 namespace NoteApplication.ViewModel
@@ -25,15 +27,28 @@ namespace NoteApplication.ViewModel
 				Mediator.Instance.SendMessage("SelectedNote", value);
 			}
 		}
-		public string NumberOfShownItems { get; set; } = NoteHelper.Instance.NoteCount.ToString();
+		public int NumberOfShownItems { get; set; }
 
 		private readonly NavigationService navigationService;
+		private readonly SettingsViewModel settings;
+		private readonly IDataService dataservice;
 
-		public ReadNotesViewModel()
+		public ReadNotesViewModel(SettingsViewModel settings, IDataService dataservice)
 		{
-			Notes = new ObservableCollection<Note>(NoteHelper.Instance.GetNotes(NoteHelper.Instance.NoteCount));
+			this.settings = settings;
+			this.dataservice = dataservice;
+			
+			//Notes = new ObservableCollection<Note>(NoteHelper.Instance.GetNotes(settings.NotesToShowCount));
 			navigationService = new NavigationService();
-			navigationService.Configure("NoteDetailsPage", typeof(Pages.NoteDetails));
+			navigationService.Configure("NoteDetailsPage", typeof(Pages.NoteDetails));		
+		}
+
+		public async void LoadNotes()
+		{
+			NumberOfShownItems = settings.NotesToShowCount;
+			var notes = await dataservice.GetAllNotes();
+			notes = NoteHelper.GetNotes(notes, settings.NotesToShowCount, settings.SortAscending);
+			Notes = new ObservableCollection<Note>(notes);
 		}
 	}
 }

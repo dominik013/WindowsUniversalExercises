@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using NoteApplication.Helper;
+using NoteApplication.Interfaces;
 using NoteApplication.Model;
 
 namespace NoteApplication.ViewModel
@@ -16,9 +17,14 @@ namespace NoteApplication.ViewModel
 		public RelayCommand DeleteCommand { get; }
 
 		private NavigationService navigationService;
+		private readonly IDataService dataservice;
+		private readonly ReadNotesViewModel readNotesViewModel;
 
-		public NoteDetailsViewModel()
+		public NoteDetailsViewModel(IDataService dataservice, ReadNotesViewModel readNotesViewModel)
 		{
+			this.dataservice = dataservice;
+			this.readNotesViewModel = readNotesViewModel;
+
 			CancelCommand = new RelayCommand(CancelEdit);
 			SaveCommand = new RelayCommand(SaveNote);
 			DeleteCommand = new RelayCommand(DeleteNote);
@@ -44,12 +50,14 @@ namespace NoteApplication.ViewModel
 		private void SaveNote()
 		{
 			Note.Content = NoteText;
+			readNotesViewModel.LoadNotes();
 			navigationService.GoBack();
 		}
 
 		private void DeleteNote()
 		{
-			NoteHelper.Instance.RemoveNote(Note);
+			dataservice.DeleteNote(Note);
+			readNotesViewModel.LoadNotes();
 			navigationService.GoBack();
 		}
 	}

@@ -28,7 +28,5 @@ namespace NoteApplication
         {
             this.InitializeComponent();
         }
-
-		public OverviewViewModel ViewModel => new OverviewViewModel();
 	}
 }

@@ -42,7 +42,8 @@
                     >
             <StackPanel Orientation="Horizontal">
                 <TextBlock Margin="0 0 10 0">Search:</TextBlock>
-                <TextBox Text="{Binding Path=SearchText, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=SearchText, Mode=TwoWay,
+                    UpdateSourceTrigger=PropertyChanged}"
                     Width="150"/>
             </StackPanel>
 
@@ -56,11 +57,6 @@
                 Converter={StaticResource DateTimeToDateTimeOffsetConverter}}">
                 To:
             </DatePicker>
-
-            <Button Command="{Binding Path=SearchCommand}"
-                Content="Search"
-                Margin="10"
-                HorizontalAlignment="Center"/>
         </StackPanel>
     </Grid>
 </Page>

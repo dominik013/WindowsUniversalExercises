@@ -1,19 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NoteApplication.Model
 {
 	public class Note
 	{
-		public Note(string content, DateTime createdTime)
+		public Note(string content, DateTime createdTime, double latitude, double longitude)
 		{
 			Content = content;
 			CreatedTime = createdTime;
+			Latitude = latitude;
+			Longitude = longitude;
 		}
 		public string Content { get; set; }
 		public DateTime CreatedTime { get; set; }
+		public double Latitude { get; set; }
+		public double Longitude { get; set; }
 	}
 }

@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using NoteApplication.Helper;
+using NoteApplication.Interfaces;
 using NoteApplication.Model;
 using System;
 using System.Collections.ObjectModel;
@@ -12,8 +13,6 @@ namespace NoteApplication.ViewModel
 	{
 		public ObservableCollection<Note> Notes { get; set; }
 		public string SearchText { get; set; } = "";
-
-		public RelayCommand SearchCommand { get; }
 
 		public DateTime From { get; set; } = new DateTime(2000, 1, 1);
 		public DateTime To { get; set; } = DateTime.Now;
@@ -36,17 +35,33 @@ namespace NoteApplication.ViewModel
 		}
 
 		private readonly NavigationService navigationService;
+		private readonly IDataService dataservice;
+		private readonly SettingsViewModel settings;
 
-		public SearchNotesViewModel()
+		public SearchNotesViewModel(IDataService dataservice, SettingsViewModel settings)
 		{
-			SearchCommand = new RelayCommand(SearchNotes);
+			this.dataservice = dataservice;
+			this.settings = settings;
+
 			navigationService = new NavigationService();
 			navigationService.Configure("NoteDetailsPage", typeof(Pages.NoteDetails));
+
+			PropertyChanged += SearchNotesViewModel_PropertyChanged;
 		}
 
-		private void SearchNotes()
+		private void SearchNotesViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs args)
 		{
-			Notes = new ObservableCollection<Note>(NoteHelper.Instance.GetNotesThatContain(SearchText, From, To));
+			if (args.PropertyName == nameof(SearchText)
+				|| args.PropertyName == nameof(From)
+				|| args.PropertyName == nameof(To)) {
+				SearchNotes();
+			}
+		}
+
+		private async void SearchNotes()
+		{
+			var notes = await dataservice.GetAllNotes();
+			Notes = new ObservableCollection<Note>(NoteHelper.GetNotesThatContain(notes, SearchText, From, To, settings.SortAscending));
 		}
 	}
 }

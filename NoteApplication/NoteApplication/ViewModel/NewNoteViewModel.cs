@@ -2,8 +2,10 @@
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using NoteApplication.Helper;
+using NoteApplication.Interfaces;
 using NoteApplication.Model;
 using System;
+using Windows.Devices.Geolocation;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
@@ -14,19 +16,23 @@ namespace NoteApplication.ViewModel
 	{
 		public string NoteText { get; set; }
 		public DateTime DateCreated { get; set; }
+		private double Latitude { get; set; }
+		private double Longitude { get; set; } 
 		
-		public static NewNoteViewModel Instance { get; } = new NewNoteViewModel();
-
 		private DispatcherTimer dispatcherTimer;
 		private readonly NavigationService navigationService;
 
 		public RelayCommand AddNoteCommand { get; }
 		public RelayCommand NavigateBackCommand { get; }
 
-		public bool CanAddNote => !string.IsNullOrEmpty(NoteText);	
+		public bool CanAddNote => !string.IsNullOrEmpty(NoteText);
 
-		public NewNoteViewModel()
+		private IDataService dataservice;
+
+		public NewNoteViewModel(IDataService dataservice)
 		{
+			this.dataservice = dataservice;
+
 			AddNoteCommand = new RelayCommand(AddNote);
 			NavigateBackCommand = new RelayCommand(NavigateBack);
 
@@ -56,11 +62,35 @@ namespace NoteApplication.ViewModel
 
 		private void AddNote()
 		{
-			NoteHelper.Instance.AddNote(new Note(NoteText, DateCreated));
+			dataservice.AddNote(new Note(NoteText, DateCreated, Latitude, Longitude));
 			NoteText = "";
 			navigationService.GoBack();
 		}
 
+		private async void GetCurrentLocation()
+		{
+			var access = await Geolocator.RequestAccessAsync();
+
+			switch (access)
+			{
+				case GeolocationAccessStatus.Allowed:
+
+					var geolocator = new Geolocator();
+					var geopositon = await geolocator.GetGeopositionAsync();
+					var geopoint = geopositon.Coordinate.Point;
+
+					Latitude = geopoint.Position.Latitude;
+					Longitude = geopoint.Position.Longitude;
+					break;
+				case GeolocationAccessStatus.Unspecified:
+				case GeolocationAccessStatus.Denied:
+					break;
+			}
+		}
+
+		/// <summary>
+		/// Creates the clock which is showing the current time
+		/// </summary>
 		private void SetupDateCreated()
 		{
 			if (dispatcherTimer == null)

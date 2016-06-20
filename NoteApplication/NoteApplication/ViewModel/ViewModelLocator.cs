@@ -19,13 +19,14 @@ namespace NoteApplication.ViewModel
 			SimpleIoc.Default.Register<NoteDetailsViewModel>();
 
 			SimpleIoc.Default.Register<IStorageService, StorageService>();
+			SimpleIoc.Default.Register<IDataService, OneTimeDataService>();
 		}
 
 		public NewNoteViewModel NewNoteViewModel => ServiceLocator.Current.GetInstance<NewNoteViewModel>();
 		public OverviewViewModel OverviewViewModel => ServiceLocator.Current.GetInstance<OverviewViewModel>();
-		public ReadNotesViewModel ReadNotesViewModel => new ReadNotesViewModel();
-		public SearchNotesViewModel SearchNotesViewModel => new SearchNotesViewModel();
+		public ReadNotesViewModel ReadNotesViewModel => ServiceLocator.Current.GetInstance<ReadNotesViewModel>();
+		public SearchNotesViewModel SearchNotesViewModel => ServiceLocator.Current.GetInstance<SearchNotesViewModel>();
 		public SettingsViewModel SettingsViewModel => ServiceLocator.Current.GetInstance<SettingsViewModel>();
-		public NoteDetailsViewModel NoteDetailsViewModel => new NoteDetailsViewModel();
+		public NoteDetailsViewModel NoteDetailsViewModel => ServiceLocator.Current.GetInstance<NoteDetailsViewModel>();
 	}
 }
