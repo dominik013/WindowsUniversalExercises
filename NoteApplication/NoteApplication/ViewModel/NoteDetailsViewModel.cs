@@ -24,7 +24,6 @@ namespace NoteApplication.ViewModel
 		private NavigationService navigationService;
 		private readonly IDataService dataservice;
 		private readonly ReadNotesViewModel readNotesViewModel;
-		private readonly MapviewViewModel mapviewViewModel;
 
 		// Map related
 		public MapStyle MapStyle => (MapStyle)Enum.Parse(typeof(MapStyle), MapStyleName);
@@ -34,11 +33,10 @@ namespace NoteApplication.ViewModel
 		public double Zoom { get; set; } = 5;
 		public Geopoint LocationTaken { get; set; } 
 
-		public NoteDetailsViewModel(IDataService dataservice, ReadNotesViewModel readNotesViewModel, MapviewViewModel mapviewViewModel)
+		public NoteDetailsViewModel(IDataService dataservice, ReadNotesViewModel readNotesViewModel)
 		{
 			this.dataservice = dataservice;
 			this.readNotesViewModel = readNotesViewModel;
-			this.mapviewViewModel = mapviewViewModel;
 
 			CancelCommand = new RelayCommand(CancelEdit);
 			SaveCommand = new RelayCommand(SaveNote);

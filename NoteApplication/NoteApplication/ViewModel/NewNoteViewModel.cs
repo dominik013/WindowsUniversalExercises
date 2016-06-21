@@ -77,11 +77,19 @@ namespace NoteApplication.ViewModel
 				case GeolocationAccessStatus.Allowed:
 
 					var geolocator = new Geolocator();
-					var geopositon = await geolocator.GetGeopositionAsync();
-					var geopoint = geopositon.Coordinate.Point;
+					try
+					{
+						var geopositon = await geolocator.GetGeopositionAsync();
+						var geopoint = geopositon.Coordinate.Point;
 
-					note.Latitude = geopoint.Position.Latitude;
-					note.Longitude = geopoint.Position.Longitude;
+						note.Latitude = geopoint.Position.Latitude;
+						note.Longitude = geopoint.Position.Longitude;
+					}
+					catch(Exception ex)
+					{
+						return;
+					}
+					
 					break;
 				case GeolocationAccessStatus.Unspecified:
 				case GeolocationAccessStatus.Denied:
