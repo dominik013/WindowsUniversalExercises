@@ -18,5 +18,6 @@ namespace NoteApplication.Model
 		public DateTime CreatedTime { get; set; }
 		public double Latitude { get; set; }
 		public double Longitude { get; set; }
+		public string TenantId { get; set; }
 	}
 }

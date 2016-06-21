@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NoteApplication.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,13 @@ namespace NoteApplication.Pages
 		public ReadNotes()
 		{
 			this.InitializeComponent();
+		}
+
+		public ReadNotesViewModel ViewModel => DataContext as ReadNotesViewModel;
+
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			ViewModel.LoadNotes();
 		}
 	}
 }

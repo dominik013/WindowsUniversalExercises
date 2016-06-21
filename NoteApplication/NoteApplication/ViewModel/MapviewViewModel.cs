@@ -19,7 +19,7 @@ namespace NoteApplication.ViewModel
 	{
 		public MapStyle MapStyle => (MapStyle)Enum.Parse(typeof(MapStyle), MapStyleName);
 		public string MapStyleName { get; set; } = "Road";
-		public string Token => "ABqAfIfL8B3HIvAVMVmK~MSfiZYN7DoiZ0MlGVtjOHw~Aq0tWh2Z0wfet16va06U21q4LNDSvC4mjQSLJjhtL5MV8RMTKvWwoqDNGinI4dGn";
+		public string Token => "HCc9KftT2VAs63i057Uw~YmhZn11F3eY94bnV2S3LiA~Asr9u_NLHurZJl5glhrmUrubmlt5eRmJAHEBwMf5j3rItzxJMzBDOy4BKB9m-MnD";
 		public double Zoom { get; set; } = 2;
 		public Geopoint Center { get; set; }
 
@@ -56,6 +56,7 @@ namespace NoteApplication.ViewModel
 			{
 				POIToShow.Add(new POI(note, new Geopoint(new BasicGeoposition() { Latitude = note.Latitude, Longitude = note.Longitude })));
 			}
+			RaisePropertyChanged(nameof(POIToShow));
 		}
 	}
 }

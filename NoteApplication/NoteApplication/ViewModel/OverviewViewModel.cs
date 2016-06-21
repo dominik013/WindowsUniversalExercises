@@ -1,12 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace NoteApplication.ViewModel
 {
@@ -20,12 +14,8 @@ namespace NoteApplication.ViewModel
 		public RelayCommand NavigateMapviewCommand { get; }
 		public RelayCommand NavigateSettingsCommand { get; }
 
-		private readonly ReadNotesViewModel readNotesViewModel;
-
-		public OverviewViewModel(ReadNotesViewModel readNotesViewModel)
+		public OverviewViewModel()
 		{
-			this.readNotesViewModel = readNotesViewModel;
-
 			navigationService = new NavigationService();
 			navigationService.Configure("NewNotePage", typeof(Pages.NewNotePage));
 			navigationService.Configure("ReadNotesPage", typeof(Pages.ReadNotes));
@@ -45,7 +35,6 @@ namespace NoteApplication.ViewModel
 		}
 		public void NavigateToReadNotes()
 		{
-			readNotesViewModel.LoadNotes();
 			navigationService.NavigateTo("ReadNotesPage");
 		}
 		public void NavigateToSearchNotes()

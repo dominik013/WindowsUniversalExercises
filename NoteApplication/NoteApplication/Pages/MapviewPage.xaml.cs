@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using System.Threading;
 
 // Die Elementvorlage "Leere Seite" ist unter http://go.microsoft.com/fwlink/?LinkId=234238 dokumentiert.
 
@@ -41,7 +42,7 @@ namespace NoteApplication.Pages
 			}
 		}
 
-		private void map_Loaded(object sender, RoutedEventArgs e)
+		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
 			ViewModel.GetNotes();
 		}

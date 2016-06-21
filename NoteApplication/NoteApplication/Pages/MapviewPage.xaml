@@ -21,12 +21,12 @@
             RelativePanel.AlignRightWithPanel="True"
             RelativePanel.AlignLeftWithPanel="True"
             RelativePanel.AlignTopWithPanel="True"
-            RelativePanel.AlignBottomWithPanel="True" Loaded="map_Loaded">
+            RelativePanel.AlignBottomWithPanel="True">
 
-            <maps:MapItemsControl ItemsSource="{Binding Path=POIToShow, Mode=TwoWay}">
+            <maps:MapItemsControl ItemsSource="{Binding Path=POIToShow, Mode=OneWay}">
                 <maps:MapItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="model:POI">
-                        <Grid maps:MapControl.Location="{x:Bind Location}"  
+                        <Grid maps:MapControl.Location="{x:Bind Location, Mode=OneWay}"  
                             maps:MapControl.NormalizedAnchorPoint="0.5 1">
                             <Button Command="{Binding Path=POICommand}" Click="Button_Click">
                                 <Image Source="ms-appx:///Assets/pin.png"/>

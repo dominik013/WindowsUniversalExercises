@@ -46,7 +46,7 @@
                  Height="Auto"
                  AcceptsReturn="True"
                  TextWrapping="Wrap"
-                 
+                 Margin="10"
                  >
         </TextBox>
         

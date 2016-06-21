@@ -36,7 +36,8 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid x:Name="SettingsGrid"
-              RelativePanel.AlignVerticalCenterWithPanel="True">
+              RelativePanel.AlignVerticalCenterWithPanel="True"
+              Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="10*"/>
