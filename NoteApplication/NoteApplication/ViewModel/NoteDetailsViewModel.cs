@@ -14,6 +14,7 @@ namespace NoteApplication.ViewModel
 	public class NoteDetailsViewModel : ViewModelBase
 	{
 		public Note Note { get; set; }
+		public string NoteTitle { get; set; }
 		public string NoteText { get; set; }
 
 		public RelayCommand CancelCommand { get; }
@@ -53,6 +54,7 @@ namespace NoteApplication.ViewModel
 			{
 				Note = arg as Note;
 				NoteText = Note.Content;
+				NoteTitle = Note.Title;
 				LocationTaken = new Geopoint(new BasicGeoposition() { Latitude = Note.Latitude, Longitude = Note.Longitude });
 			}
 		}
@@ -65,13 +67,16 @@ namespace NoteApplication.ViewModel
 		private void SaveNote()
 		{
 			Note.Content = NoteText;
+			Note.Title = NoteTitle;
 			dataservice.SaveNote(Note);
+			readNotesViewModel.LoadNotes();
 			navigationService.GoBack();
 		}
 
 		private void DeleteNote()
 		{
 			dataservice.DeleteNote(Note);
+			readNotesViewModel.LoadNotes();
 			navigationService.GoBack();
 		}
 	}

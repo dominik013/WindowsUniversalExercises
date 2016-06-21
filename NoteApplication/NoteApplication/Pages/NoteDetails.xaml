@@ -51,11 +51,14 @@
                         Grid.Row="1">
                 <TextBlock Text="Edit Note:"
                            HorizontalAlignment="Center"/>
+                <TextBox Text="{Binding Path=NoteTitle, Mode=TwoWay}"
+                         FontWeight="Bold"/>
+
                 <TextBox Text="{Binding Path=NoteText, Mode=TwoWay}"
                          TextWrapping="Wrap"
-                         VerticalAlignment="Stretch"
                          Height="auto"
                          AcceptsReturn="True"/>
+
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         Grid.Row="2"

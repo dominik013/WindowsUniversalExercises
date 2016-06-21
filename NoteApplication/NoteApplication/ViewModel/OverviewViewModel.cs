@@ -14,8 +14,11 @@ namespace NoteApplication.ViewModel
 		public RelayCommand NavigateMapviewCommand { get; }
 		public RelayCommand NavigateSettingsCommand { get; }
 
-		public OverviewViewModel()
+		public readonly ReadNotesViewModel readNotesVM;
+
+		public OverviewViewModel(ReadNotesViewModel readNotesVM)
 		{
+			this.readNotesVM = readNotesVM;
 			navigationService = new NavigationService();
 			navigationService.Configure("NewNotePage", typeof(Pages.NewNotePage));
 			navigationService.Configure("ReadNotesPage", typeof(Pages.ReadNotes));
@@ -35,6 +38,7 @@ namespace NoteApplication.ViewModel
 		}
 		public void NavigateToReadNotes()
 		{
+			readNotesVM.LoadNotes();
 			navigationService.NavigateTo("ReadNotesPage");
 		}
 		public void NavigateToSearchNotes()

@@ -48,6 +48,7 @@ namespace NoteApplication.ViewModel
 			var notes = await dataservice.GetAllNotes();
 			notes = NoteHelper.GetNotes(notes, settings.NotesToShowCount, settings.SortAscending);
 			Notes = new ObservableCollection<Note>(notes);
+			RaisePropertyChanged(nameof(Notes));
 		}
 	}
 }

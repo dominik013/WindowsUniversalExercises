@@ -29,10 +29,5 @@ namespace NoteApplication.Pages
 		}
 
 		public ReadNotesViewModel ViewModel => DataContext as ReadNotesViewModel;
-
-		protected override void OnNavigatedTo(NavigationEventArgs e)
-		{
-			ViewModel.LoadNotes();
-		}
 	}
 }

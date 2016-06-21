@@ -28,7 +28,8 @@
                     <DataTemplate x:DataType="model:POI">
                         <Grid maps:MapControl.Location="{x:Bind Location, Mode=OneWay}"  
                             maps:MapControl.NormalizedAnchorPoint="0.5 1">
-                            <Button Command="{Binding Path=POICommand}" Click="Button_Click">
+                            <Button Background="Transparent"
+                                    Click="Button_Click">
                                 <Image Source="ms-appx:///Assets/pin.png"/>
                             </Button>
                         </Grid>
