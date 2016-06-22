@@ -32,6 +32,7 @@
                                     Click="Button_Click">
                                 <Image Source="ms-appx:///Assets/pin.png"/>
                             </Button>
+                            <TextBlock Text="{x:Bind Note.Title, Mode=OneWay}"/>
                         </Grid>
                     </DataTemplate>
                 </maps:MapItemsControl.ItemTemplate>
